@@ -5,3 +5,7 @@ numpy
 torch
 pytest
 PyYAML
+fastapi
+uvicorn
+jinja2
+python-multipart
