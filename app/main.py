@@ -2,10 +2,6 @@ from pathlib import Path
 import cv2
 import numpy as np
 from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from starlette.requests import Request
 from ultralytics import YOLO
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,25 +20,6 @@ detector = YOLO(str(DETECTOR_PATH))
 classifier = YOLO(str(CLASSIFIER_PATH))
 
 app = FastAPI(title="Smart Glasses")
-
-app.mount(
-    "/static",
-    StaticFiles(directory=str(BASE_DIR / "app/static")),
-    name="static",
-)
-
-templates = Jinja2Templates(
-    directory=str(BASE_DIR / "app/templates")
-)
-
-
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
-    return templates.TemplateResponse(
-        "index.html",
-        {"request": request},
-    )
-
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
