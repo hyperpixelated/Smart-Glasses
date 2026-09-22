@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Glasses — Assistive Vision</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <header class="topbar">
+        <div>
+            <div class="brand">SMART<span>GLASSES</span></div>
+            <div class="subtitle">Assistive Vision System</div>
+        </div>
+
+        <div class="live-status">
+            <span class="status-dot"></span>
+            <span id="systemStatus">SYSTEM READY</span>
+        </div>
+    </header>
+
+    <main class="dashboard">
+
+        <section class="camera-panel panel">
+
+            <div class="panel-header">
+                <div>
+                    <div class="eyebrow">VISION INPUT</div>
+                    <h2>Live Camera</h2>
+                </div>
+
+                <div class="camera-status" id="cameraStatus">
+                    CAMERA OFF
+                </div>
+            </div>
+
+            <div class="camera-container">
+
+                <video
+                    id="camera"
+                    autoplay
+                    playsinline
+                    muted>
+                </video>
+
+                <canvas id="overlay"></canvas>
+
+                <div class="camera-placeholder" id="cameraPlaceholder">
+                    <div class="camera-icon">◉</div>
+                    <div>Camera feed inactive</div>
+                    <button id="startCamera">
+                        START CAMERA
+                    </button>
+                </div>
+
+                <div class="scan-line"></div>
+
+            </div>
+
+        </section>
+
+
+        <section class="prediction-panel panel">
+
+            <div class="panel-header">
+                <div>
+                    <div class="eyebrow">AI INTERPRETATION</div>
+                    <h2>Current Sign</h2>
+                </div>
+
+                <div class="ai-badge">
+                    AI ONLINE
+                </div>
+            </div>
+
+            <div class="prediction-card">
+
+                <div class="sign-symbol" id="signSymbol">
+                    —
+                </div>
+
+                <div class="sign-name" id="signName">
+                    Waiting for detection
+                </div>
+
+                <div class="sign-confidence">
+                    <span>CONFIDENCE</span>
+                    <strong id="confidence">—</strong>
+                </div>
+
+                <div class="confidence-bar">
+                    <div id="confidenceFill"></div>
+                </div>
+
+                <div class="prediction-status" id="predictionStatus">
+                    Point the camera at a traffic sign
+                </div>
+
+            </div>
+
+
+            <div class="audio-card">
+
+                <div class="audio-header">
+                    <span>🔊</span>
+                    <span>AUDIO OUTPUT</span>
+                </div>
+
+                <div id="audioText">
+                    Voice output will appear here.
+                </div>
+
+                <button id="speakButton" disabled>
+                    PLAY VOICE
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <section class="system-panel panel">
+
+        <div class="panel-header">
+            <div>
+                <div class="eyebrow">SYSTEM MONITOR</div>
+                <h2>Model Status</h2>
+            </div>
+        </div>
+
+        <div class="status-grid">
+
+            <div class="status-card">
+                <span>TRAFFIC DETECTOR</span>
+                <strong>● ONLINE</strong>
+                <small>YOLO11n</small>
+            </div>
+
+            <div class="status-card">
+                <span>SIGN CLASSIFIER</span>
+                <strong>● ONLINE</strong>
+                <small>12 Classes</small>
+            </div>
+
+            <div class="status-card">
+                <span>VISION PIPELINE</span>
+                <strong>● READY</strong>
+                <small>Detection → Classification</small>
+            </div>
+
+            <div class="status-card">
+                <span>AUDIO SYSTEM</span>
+                <strong>● READY</strong>
+                <small>Assistive Voice</small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="history-panel panel">
+
+        <div class="panel-header">
+            <div>
+                <div class="eyebrow">RECENT EVENTS</div>
+                <h2>Recognition History</h2>
+            </div>
+        </div>
+
+        <div id="history" class="history">
+            <div class="empty-history">
+                No signs recognized yet.
+            </div>
+        </div>
+
+    </section>
+
+
+    <footer>
+        SMART GLASSES • COMPUTER VISION ASSISTIVE TECHNOLOGY
+    </footer>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
