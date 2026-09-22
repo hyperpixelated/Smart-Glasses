@@ -3,12 +3,28 @@
     {
       "src": "frontend/index.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/style.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/script.js",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/frontend/$1"
+      "src": "/",
+      "dest": "/frontend/index.html"
+    },
+    {
+      "src": "/style.css",
+      "dest": "/frontend/style.css"
+    },
+    {
+      "src": "/script.js",
+      "dest": "/frontend/script.js"
     }
   ]
 }
