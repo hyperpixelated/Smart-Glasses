@@ -29,6 +29,7 @@ Python 3.10 or newer is recommended. A `.venv` already exists in this workspace.
 source .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+pip install -e .
 ```
 
 If starting from a fresh clone, create the environment first:
@@ -38,6 +39,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
+pip install -e .
 ```
 
 Verify the active environment after installation:
@@ -74,11 +76,42 @@ Press **Q** while the OpenCV video window is focused to stop the demo safely. Th
 
 On macOS, allow your terminal application (or the IDE that launches the script) to access the camera when prompted. You can change this later in **System Settings → Privacy & Security → Camera**. If the camera cannot be opened, confirm that a camera is connected, no other application is using it, and the launching application has camera permission; then close competing apps and try again.
 
-For local package imports during development, set the source directory on your Python path:
+## Dataset infrastructure
+
+No traffic-sign dataset is included in this repository. Store unmodified source material locally in `data/raw`, temporary conversions in `data/interim`, and YOLO-ready files in this structure:
+
+```text
+data/
+├── raw/
+├── interim/
+└── processed/
+    ├── images/
+    │   ├── train/
+    │   ├── val/
+    │   └── test/
+    └── labels/
+        ├── train/
+        ├── val/
+        └── test/
+```
+
+The central class taxonomy and Ultralytics-compatible dataset configuration are in `data/traffic_sign.yaml`. The current classes are: `0 stop`, `1 no_entry`, `2 speed_limit`, `3 left_turn`, `4 right_turn`, `5 u_turn`, `6 pedestrian_crossing`, `7 school_ahead`, `8 traffic_signal`, and `9 railway_crossing`.
+
+Each label file mirrors its image filename and relative directory under `labels/<split>`. Every annotation line uses YOLO normalized format:
+
+```text
+class_id x_center y_center width height
+```
+
+All four coordinate values must be in the range `[0, 1]`; width and height must be greater than zero. Validate local dataset files with:
 
 ```bash
-export PYTHONPATH="$PWD/src"
+python scripts/validate_dataset.py
 ```
+
+The validator reports `PASS`, `WARNING`, and `ERROR` findings. Keep train, validation, and test splits grouped by scene or source video where possible, so near-duplicate frames do not leak between splits.
+
+The editable install makes the `src/smart_glasses` package importable during development and lets `pytest` run from the repository root without manually setting `PYTHONPATH`.
 
 ## Repository conventions
 

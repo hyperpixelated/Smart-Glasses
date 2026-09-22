@@ -1,0 +1,18 @@
+# Ultralytics YOLO detection dataset configuration and class taxonomy.
+# Split paths are relative to this configuration file.
+train: processed/images/train
+val: processed/images/val
+test: processed/images/test
+
+nc: 10
+names:
+  0: stop
+  1: no_entry
+  2: speed_limit
+  3: left_turn
+  4: right_turn
+  5: u_turn
+  6: pedestrian_crossing
+  7: school_ahead
+  8: traffic_signal
+  9: railway_crossing
