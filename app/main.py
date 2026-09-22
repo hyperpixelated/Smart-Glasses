@@ -2,6 +2,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from ultralytics import YOLO
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,6 +21,8 @@ detector = YOLO(str(DETECTOR_PATH))
 classifier = YOLO(str(CLASSIFIER_PATH))
 
 app = FastAPI(title="Smart Glasses")
+
+app.add_middleware(CORSMiddleware, allow_origins=["https://smart-glasses-six.vercel.app"], allow_credentials=False, allow_methods=["POST"], allow_headers=["*"])
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):

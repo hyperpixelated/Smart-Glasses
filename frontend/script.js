@@ -160,7 +160,7 @@ async function sendFrame() {
 
             try {
                 const response = await fetch(
-                    "/predict",
+                    "https://smartglasses-backend.onrender.com/predict",
                     {
                         method: "POST",
                         body: formData
