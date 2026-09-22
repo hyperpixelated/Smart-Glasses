@@ -46,6 +46,34 @@ Verify the active environment after installation:
 python scripts/verify_environment.py
 ```
 
+## Pretrained YOLO smoke test
+
+The smoke test verifies that the active environment can load the lightweight pretrained YOLO11n detection model and run one inference. It uses Ultralytics' small bundled `bus.jpg` sample image, so it does not download or use a dataset. If YOLO11n weights are not already present, Ultralytics downloads the official pretrained weights once into `models/yolo11n.pt`.
+
+Run it from the repository root after activating the virtual environment:
+
+```bash
+python scripts/yolo_smoke_test.py
+```
+
+On success, the script prints `YOLO11n smoke test succeeded`, followed by detected class IDs, names, confidences, and bounding-box coordinates. It saves an annotated image to `outputs/smoke_test/annotated_bus.jpg`.
+
+## Live webcam demo
+
+The webcam demo opens the default Mac camera, runs the existing pretrained YOLO11n model on every frame, and shows bounding boxes, class labels, confidence scores, and live FPS in an OpenCV window. It is a general object-detection demonstration; it does not contain traffic-sign-specific logic.
+
+Run the smoke test first if `models/yolo11n.pt` is not already present, then run:
+
+```bash
+python scripts/webcam_demo.py --camera 0
+```
+
+`--camera` is explicit and defaults to `0`, the MacBook built-in camera in the current setup. The demo never falls back to, enumerates, or automatically selects another camera.
+
+Press **Q** while the OpenCV video window is focused to stop the demo safely. The script releases the camera and closes its window when it exits.
+
+On macOS, allow your terminal application (or the IDE that launches the script) to access the camera when prompted. You can change this later in **System Settings → Privacy & Security → Camera**. If the camera cannot be opened, confirm that a camera is connected, no other application is using it, and the launching application has camera permission; then close competing apps and try again.
+
 For local package imports during development, set the source directory on your Python path:
 
 ```bash
