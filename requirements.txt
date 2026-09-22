@@ -1,0 +1,6 @@
+# Core computer-vision and ML stack
+ultralytics
+opencv-python
+numpy
+torch
+pytest
